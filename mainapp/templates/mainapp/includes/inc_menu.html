@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 <a href="{% url 'main' %}" class="logo"></a>
+=======
+>>>>>>> master
 <ul class="menu">
     <li>
         <a href="{% url 'main' %}" class="{% if request.resolver_match.url_name == 'main' %}active{% endif %}">
@@ -6,8 +9,12 @@
         </a>
     </li>
     <li>
+<<<<<<< HEAD
         <a href="{% url 'products:index' %}"
             class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+=======
+        <a href="{% url 'products:index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+>>>>>>> master
             продукты
         </a>
     </li>
@@ -16,6 +23,7 @@
             контакты
         </a>
     </li>
+<<<<<<< HEAD
     {% if user.is_authenticated %}
     <li>
         <a href="{% url 'auth:edit' %}">
@@ -33,3 +41,6 @@
 </ul>
 <a href="#" class="search"></a>
 <a href="#" class="basket"></a>
+=======
+</ul>
+>>>>>>> master

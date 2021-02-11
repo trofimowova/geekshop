@@ -29,4 +29,5 @@ class Contact(models.Model):
     address = models.CharField(max_length=254, verbose_name="адресс")
 
     def __str__(self):
-        return f"{self.pk} {self.email}"
+        return f"{self.name} ({self.category.name})"
+
