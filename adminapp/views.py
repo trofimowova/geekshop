@@ -103,6 +103,10 @@ class ProductCategoryUpdateView(LoginRequiredMixin, UpdateView):
         context["title"] = "категории/редактирование"
         return context
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs
+
 
 class ProductCategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = ProductCategory
