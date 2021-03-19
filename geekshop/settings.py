@@ -46,11 +46,9 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
-    INSTALLED_APPS.extend([
-        "debug_toolbar",
-        "template_profiler_panel",
-        "django_extensions",
-    ])
+    INSTALLED_APPS.extend(
+        ["debug_toolbar", "template_profiler_panel", "django_extensions"]
+    )
 # Auth model
 AUTH_USER_MODEL = "authnapp.ShopUser"
 
@@ -58,7 +56,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    # "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -66,10 +64,12 @@ MIDDLEWARE = [
 ]
 
 if DEBUG:
-    MIDDLEWARE.extend([
-        "debug_toolbar.middleware.DebugToolbarMiddleware",
-    ])
-
+    MIDDLEWARE.extend(
+        [
+            "debug_toolbar.middleware.DebugToolbarMiddleware",
+        ]
+    )
+    
 ROOT_URLCONF = "geekshop.urls"
 
 TEMPLATES = [
@@ -87,9 +87,9 @@ TEMPLATES = [
                 "social_django.context_processors.backends",
                 "social_django.context_processors.login_redirect",
                 "django.template.context_processors.media",
-            ],
+            ]
         },
-    },
+    }
 ]
 
 WSGI_APPLICATION = "geekshop.wsgi.application"
@@ -123,16 +123,16 @@ else:
 if not DEBUG:
     AUTH_PASSWORD_VALIDATORS = [
         {
-            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
         },
         {
-            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"
         },
         {
-            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"
         },
         {
-            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"
         },
     ]
 else:
@@ -250,9 +250,7 @@ if DEBUG:
     def show_toolbar(request):
         return True
 
-    DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
-    }
+    DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
 
     DEBUG_TOOLBAR_PANELS = [
         # "ddt_request_history.panels.request_history.RequestHistoryPanel",

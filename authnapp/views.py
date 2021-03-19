@@ -7,6 +7,7 @@ from django.urls import reverse
 
 from authnapp.forms import ShopUserEditForm, ShopUserLoginForm, ShopUserProfileEditForm, ShopUserRegisterForm
 from authnapp.models import ShopUser
+from django.contrib.auth.decorators import login_required
 
 
 def login(request):
@@ -55,6 +56,7 @@ def register(request):
     return render(request, "authnapp/register.html", content)
 
 
+@login_required
 @transaction.atomic
 def edit(request):
     title = "редактирование"
@@ -83,13 +85,7 @@ def send_verify_mail(user):
     \n{settings.DOMAIN_NAME}{verify_link}"
 
     print(f"from: {settings.EMAIL_HOST_USER}, to: {user.email}")
-    return send_mail(
-        title,
-        message,
-        settings.EMAIL_HOST_USER,
-        [user.email],
-        fail_silently=False,
-    )
+    return send_mail(title, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
 
 
 def verify(request, email, activation_key):
