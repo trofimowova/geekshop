@@ -47,8 +47,13 @@ INSTALLED_APPS = [
 
 if DEBUG:
     INSTALLED_APPS.extend(
-        ["debug_toolbar", "template_profiler_panel", "django_extensions"]
+        [
+            # "debug_toolbar",
+            # "template_profiler_panel",
+            "django_extensions",
+        ]
     )
+
 # Auth model
 AUTH_USER_MODEL = "authnapp.ShopUser"
 
@@ -56,15 +61,19 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    # "django.middleware.csrf.CsrfViewMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
-if DEBUG:
-    MIDDLEWARE.extend(["debug_toolbar.middleware.DebugToolbarMiddleware"])
+# if DEBUG:
+#     MIDDLEWARE.extend(
+#         [
+#             "debug_toolbar.middleware.DebugToolbarMiddleware",
+#         ]
+#     )
 
 ROOT_URLCONF = "geekshop.urls"
 
@@ -83,9 +92,9 @@ TEMPLATES = [
                 "social_django.context_processors.backends",
                 "social_django.context_processors.login_redirect",
                 "django.template.context_processors.media",
-            ]
+            ],
         },
-    }
+    },
 ]
 
 WSGI_APPLICATION = "geekshop.wsgi.application"
@@ -119,16 +128,16 @@ else:
 if not DEBUG:
     AUTH_PASSWORD_VALIDATORS = [
         {
-            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
         },
         {
-            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"
+            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
         },
         {
-            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"
+            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
         },
         {
-            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"
+            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
         },
     ]
 else:
@@ -241,27 +250,44 @@ SOCIAL_AUTH_PIPELINE = (
 # INTERNAL_IPS = ["127.0.0.1"]
 
 # Debgu tool bar settings
-if DEBUG:
+# if DEBUG:
 
-    def show_toolbar(request):
-        return True
+#     def show_toolbar(request):
+#         return True
 
-    DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": show_toolbar}
+#     DEBUG_TOOLBAR_CONFIG = {
+#         "SHOW_TOOLBAR_CALLBACK": show_toolbar,
+#     }
 
-    DEBUG_TOOLBAR_PANELS = [
-        # "ddt_request_history.panels.request_history.RequestHistoryPanel",
-        "debug_toolbar.panels.versions.VersionsPanel",
-        "debug_toolbar.panels.timer.TimerPanel",
-        "debug_toolbar.panels.settings.SettingsPanel",
-        "debug_toolbar.panels.headers.HeadersPanel",
-        "debug_toolbar.panels.request.RequestPanel",
-        "debug_toolbar.panels.sql.SQLPanel",
-        "debug_toolbar.panels.templates.TemplatesPanel",
-        "debug_toolbar.panels.staticfiles.StaticFilesPanel",
-        "debug_toolbar.panels.cache.CachePanel",
-        "debug_toolbar.panels.signals.SignalsPanel",
-        "debug_toolbar.panels.logging.LoggingPanel",
-        "debug_toolbar.panels.redirects.RedirectsPanel",
-        "debug_toolbar.panels.profiling.ProfilingPanel",
-        "template_profiler_panel.panels.template.TemplateProfilerPanel",
-    ]
+#     DEBUG_TOOLBAR_PANELS = [
+#         # "ddt_request_history.panels.request_history.RequestHistoryPanel",
+#         "debug_toolbar.panels.versions.VersionsPanel",
+#         "debug_toolbar.panels.timer.TimerPanel",
+#         "debug_toolbar.panels.settings.SettingsPanel",
+#         "debug_toolbar.panels.headers.HeadersPanel",
+#         "debug_toolbar.panels.request.RequestPanel",
+#         "debug_toolbar.panels.sql.SQLPanel",
+#         "debug_toolbar.panels.templates.TemplatesPanel",
+#         "debug_toolbar.panels.staticfiles.StaticFilesPanel",
+#         "debug_toolbar.panels.cache.CachePanel",
+#         "debug_toolbar.panels.signals.SignalsPanel",
+#         "debug_toolbar.panels.logging.LoggingPanel",
+#         "debug_toolbar.panels.redirects.RedirectsPanel",
+#         "debug_toolbar.panels.profiling.ProfilingPanel",
+#         "template_profiler_panel.panels.template.TemplateProfilerPanel",
+#     ]
+
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 120
+CACHE_MIDDLEWARE_KEY_PREFIX = "geekbrains"
+
+# Be carefull if you have Windows! Install Memcached before run project!
+#     https://www.ubergizmo.com/how-to/install-memcached-windows/
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": "127.0.0.1:11211",
+    }
+}
+
+LOW_CACHE = True
